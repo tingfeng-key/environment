@@ -1,0 +1,12 @@
+<include>
+  <extension name="outcall">
+    <condition field="destination_number" expression="^(1\d*)$">
+      <action application="bridge" data="sofia/gateway/callout/$1"/>
+    </condition>
+  </extension>
+  <!-- <extension name="callout1">
+      <condition field="destination_number" expression="^10086$">
+        <action application="bridge" data="sofia/gateway/test/10086"/>
+      </condition>
+  </extension> -->
+</include>
