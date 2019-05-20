@@ -177,6 +177,7 @@ services:
         - FAKETIME=${PHP_FPM_FAKETIME}
       depends_on:
         - workspace
+        - activemq
       networks:
         - backend
       links:
@@ -203,6 +204,7 @@ services:
         - ./php-worker/supervisord.d:/etc/supervisord.d
       depends_on:
         - workspace
+        - activemq
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
@@ -249,19 +251,9 @@ services:
         #- backend
         frontend:
           aliases:
-            - admin.dxsl.test
-            - user.dxsl.test
-            - accesscontrol.dxsl.test
-            - party.dxsl.test
-            - poverty.dxsl.test
             - www.dxs.test
         backend:
           aliases:
-            - admin.dxsl.test
-            - user.dxsl.test
-            - accesscontrol.dxsl.test
-            - party.dxsl.test
-            - poverty.dxsl.test
             - www.dxs.test
 
 ### Blackfire ########################################
@@ -1434,8 +1426,10 @@ services:
         - frontend
         - backend
       #command: freeswitch
+      links:
+        - docker-in-docker
 
-### activemq ###################################################
+### activemq˘ ###################################################
     activemq:
       build:
         context: ./activemq
@@ -1451,3 +1445,5 @@ services:
       networks:
         - frontend
         - backend
+      links:
+        - docker-in-docker
