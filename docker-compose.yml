@@ -252,10 +252,16 @@ services:
         #- backend
         frontend:
           aliases:
-            - www.dxs.test
+            - www.mysite.test
+            - demo.smartdoor.test
+
+            - www.zsjd.fupin.test
         backend:
           aliases:
-            - www.dxs.test
+            - www.mysite.test
+            - demo.smartdoor.test
+
+            - www.zsjd.fupin.test
 
 ### Blackfire ########################################
     blackfire:
@@ -1448,3 +1454,22 @@ services:
         - backend
       links:
         - docker-in-docker
+
+### raspi3-utils ###################################################
+    raspi3:
+      build:
+        context: ./raspi3
+      #ports:
+      #  - ""
+      environment:
+        - TZ=${TIMEZONE}
+      extra_hosts:
+        - "dockerhost:${DOCKER_HOST_IP}"
+      tty: true
+      networks:
+        - frontend
+        - backend
+      links:
+        - docker-in-docker
+      volumes:
+        - ../learn/rust:/var/www
